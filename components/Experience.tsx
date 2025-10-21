@@ -187,14 +187,24 @@ export default function Experience() {
                                       cicd: 'CI/CD',
                                       observability: 'Observability'
                                     }
+                                    // Split text by periods to create bullet points
+                                    const sentences = value.split('. ').filter(s => s.trim().length > 0)
+
                                     return (
                                       <div key={key} className="border-l-2 border-accent-500 pl-4">
-                                        <h6 className="text-sm font-semibold text-accent-600 dark:text-accent-400 mb-1">
+                                        <h6 className="text-sm font-semibold text-accent-600 dark:text-accent-400 mb-2">
                                           {titleMap[key] || key}
                                         </h6>
-                                        <p className="text-sm text-gray-700 dark:text-gray-300">
-                                          {value}
-                                        </p>
+                                        <ul className="space-y-1">
+                                          {sentences.map((sentence, idx) => (
+                                            <li key={idx} className="flex items-start">
+                                              <span className="text-accent-500 mr-2 flex-shrink-0">•</span>
+                                              <span className="text-sm text-gray-700 dark:text-gray-300">
+                                                {sentence.trim()}{sentence.endsWith('.') ? '' : '.'}
+                                              </span>
+                                            </li>
+                                          ))}
+                                        </ul>
                                       </div>
                                     )
                                   })}

@@ -33,7 +33,7 @@ export default function Projects() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Featured Projects
+            Personal Projects
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-600 to-accent-500 mx-auto mb-4"></div>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">

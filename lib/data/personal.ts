@@ -85,6 +85,6 @@ export const seoMetadata = {
     'PyTorch'
   ],
   author: 'Souleymane Saidou Abouba',
-  ogImage: '/images/og-image.jpg', // Open Graph image for social media
-  siteUrl: 'https://yourdomain.com' // Update with your actual domain
+  ogImage: '/images/profile.jpg', // Using profile image for social media preview
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com' // Update with your actual domain
 };

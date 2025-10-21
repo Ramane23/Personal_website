@@ -26,6 +26,7 @@ const inter = Inter({
 
 // SEO Metadata
 export const metadata: Metadata = {
+  metadataBase: new URL(seoMetadata.siteUrl),
   title: seoMetadata.title,
   description: seoMetadata.description,
   keywords: seoMetadata.keywords,
