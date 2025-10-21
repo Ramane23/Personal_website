@@ -28,9 +28,6 @@ import Education from '@/components/Education'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
-// Disable static generation for this page
-export const dynamic = 'force-dynamic'
-
 export default function Home() {
   return (
     <main className="min-h-screen">
