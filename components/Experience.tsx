@@ -15,6 +15,8 @@
 
 import { useState } from 'react'
 import { experiences } from '@/lib/data/experience'
+import ArchitectureDiagram from '@/components/ArchitectureDiagram'
+import { getArchitecture } from '@/lib/data/architectures'
 
 export default function Experience() {
   const [expandedProjects, setExpandedProjects] = useState<{ [key: string]: number | null }>({})
@@ -170,7 +172,34 @@ export default function Experience() {
 
                             {/* Expanded Project Details */}
                             {expandedProjects[exp.id] === projIdx && (
-                              <div className="p-6 bg-white dark:bg-gray-900 space-y-4">
+                              <div className="p-6 bg-white dark:bg-gray-900 space-y-6">
+                                {/* Architecture Diagram */}
+                                {(() => {
+                                  // Map project names to architecture IDs
+                                  const archIdMap: { [key: string]: string } = {
+                                    'PRIA - Reinforcement Learning for Medical Parameter Optimization': 'pria-rl',
+                                    'Automatic PR Reviewer - AI-Powered Code Review Agent': 'pr-reviewer',
+                                    'Computer Vision for Industrial Piece Anomaly Detection': 'cv-anomaly',
+                                    'RAG-Based Industrial Documentation Query System': 'rag-docs',
+                                  }
+                                  const archId = archIdMap[project.name]
+                                  const architecture = archId ? getArchitecture(archId) : null
+
+                                  if (architecture) {
+                                    return (
+                                      <div className="mb-6">
+                                        <ArchitectureDiagram
+                                          nodes={architecture.nodes}
+                                          edges={architecture.edges}
+                                          title="System Architecture"
+                                          height="600px"
+                                        />
+                                      </div>
+                                    )
+                                  }
+                                  return null
+                                })()}
+
                                 {/* Architecture Sections */}
                                 <div className="space-y-3">
                                   {Object.entries(project.architecture).map(([key, value]) => {
