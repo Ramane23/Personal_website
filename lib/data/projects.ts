@@ -24,6 +24,7 @@ export interface Project {
     demo?: string;
   };
   image?: string;
+  architectureImage?: string;
   featured: boolean;
   category: 'GenAI' | 'MLOps' | 'Agentic AI' | 'RAG' | 'Real-time ML';
 }
@@ -43,6 +44,7 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/Ramane23/real-time-ml-contrails-prediction'
     },
+    architectureImage: '/images/architecture/contrails-architecture.png',
     featured: true,
     category: 'Real-time ML'
   },
@@ -55,6 +57,7 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/Ramane23/Blog-generator-agent'
     },
+    architectureImage: '/images/architecture/blog-generator-architecture.png',
     featured: true,
     category: 'Agentic AI'
   },
@@ -67,6 +70,7 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/Ramane23/AI-Chatbots'
     },
+    architectureImage: '/images/architecture/ai-chatbots-architecture.png',
     featured: true,
     category: 'Agentic AI'
   },
@@ -79,6 +83,7 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/Ramane23/HomeMatch'
     },
+    architectureImage: '/images/architecture/homematch-architecture.png',
     featured: true,
     category: 'RAG'
   }

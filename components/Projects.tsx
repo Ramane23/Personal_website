@@ -13,28 +13,10 @@
 
 'use client'
 
-import React, { useState } from 'react'
 import { projects } from '@/lib/data/projects'
-import {
-  ContrailsArchitecture,
-  BlogGeneratorArchitecture,
-  ChatbotArchitecture,
-  HomeMatchArchitecture
-} from './ProjectArchitectures'
+import Image from 'next/image'
 
 export default function Projects() {
-  const [expandedProject, setExpandedProject] = useState<string | null>(null)
-
-  const getArchitectureDiagram = (projectId: string) => {
-    const diagrams: Record<string, React.ComponentType> = {
-      'contrails-prediction': ContrailsArchitecture,
-      'blog-generator': BlogGeneratorArchitecture,
-      'ai-chatbots': ChatbotArchitecture,
-      'homematch': HomeMatchArchitecture
-    }
-    return diagrams[projectId]
-  }
-
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
       'GenAI': 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300',
@@ -86,27 +68,20 @@ export default function Projects() {
                 </p>
 
                 {/* Architecture Diagram */}
-                {getArchitectureDiagram(project.id) && (
+                {project.architectureImage && (
                   <div className="my-6">
-                    <button
-                      onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-                      className="flex items-center space-x-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors mb-3 font-semibold"
-                    >
-                      <svg
-                        className={`w-5 h-5 transform transition-transform ${expandedProject === project.id ? 'rotate-90' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                      <span>View Architecture Diagram</span>
-                    </button>
-                    {expandedProject === project.id && (
-                      <div className="bg-white dark:bg-gray-900 rounded-lg p-6 border-2 border-primary-200 dark:border-primary-800 shadow-inner">
-                        {React.createElement(getArchitectureDiagram(project.id)!)}
-                      </div>
-                    )}
+                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                      Architecture Diagram
+                    </h4>
+                    <div className="bg-white dark:bg-gray-900 rounded-lg p-4 border-2 border-gray-200 dark:border-gray-700">
+                      <Image
+                        src={project.architectureImage}
+                        alt={`${project.title} Architecture`}
+                        width={700}
+                        height={400}
+                        className="w-full h-auto rounded"
+                      />
+                    </div>
                   </div>
                 )}
 
