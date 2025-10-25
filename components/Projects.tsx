@@ -49,6 +49,18 @@ export default function Projects() {
               key={project.id}
               className="group bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2"
             >
+              {/* Project Preview Image */}
+              {project.image && (
+                <div className="relative h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-700">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} Preview`}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              )}
+
               {/* Card Header */}
               <div className="p-6 bg-gradient-to-r from-primary-600 to-accent-500 text-white">
                 <div className="flex items-start justify-between mb-3">
