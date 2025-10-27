@@ -1,6 +1,6 @@
-# Architecture Diagrams
+# Personal Projects Architecture Diagrams
 
-Place your architecture diagram images in this directory.
+Place your personal project architecture diagram images in this directory.
 
 ## Required Images
 

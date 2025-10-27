@@ -10,6 +10,7 @@
 export interface ProjectDetail {
   name: string;
   description: string;
+  image?: string;
   architecture: {
     dataIngestion?: string;
     featureEngineering?: string;
@@ -74,6 +75,7 @@ export const experiences: Experience[] = [
       {
         name: 'PRIA - Reinforcement Learning for Medical Parameter Optimization',
         description: 'Led development as ML Technical Lead for a reinforcement learning system optimizing medical treatment parameters in real-time. System processes streaming medical data to provide AI-driven parameter recommendations for healthcare professionals.',
+        image: '/images/professional-projects/pria-rl.png',
         architecture: {
           dataIngestion: 'Apache Kafka and Redpanda for real-time streaming medical data ingestion from multiple sources. Custom Python consumers process high-frequency sensor data with sub-second latency requirements.',
           featureEngineering: 'Real-time feature extraction pipeline using sliding windows for temporal features. Statistical aggregations (mean, std, percentiles) computed on streaming data. Custom medical domain features engineered in collaboration with healthcare experts.',
@@ -103,6 +105,7 @@ export const experiences: Experience[] = [
       {
         name: 'Automatic PR Reviewer - AI-Powered Code Review Agent',
         description: 'Developed an intelligent code review system using LangChain and LangGraph to automate pull request reviews. The agentic AI system analyzes code changes, identifies potential issues, and provides constructive feedback to developers.',
+        image: '/images/professional-projects/pr-reviewer.png',
         architecture: {
           dataIngestion: 'GitHub webhooks trigger review pipeline on PR creation/update. REST API ingests PR diff, commit messages, and file changes. Code parsed and structured using tree-sitter for AST analysis.',
           featureEngineering: 'Code complexity metrics (cyclomatic complexity, code churn, file coupling). Static analysis features (linting violations, type errors). Historical code review patterns extracted from repository history.',
@@ -167,6 +170,7 @@ export const experiences: Experience[] = [
       {
         name: 'Computer Vision for Industrial Piece Anomaly Detection',
         description: 'Built a computer vision system for automated quality inspection of aerospace manufacturing components. Deep learning models detect surface defects, dimensional anomalies, and assembly errors in real-time production lines with high precision requirements.',
+        image: '/images/professional-projects/cv-anomaly.png',
         architecture: {
           dataIngestion: 'High-resolution camera feeds (4K, 60fps) from multiple inspection stations. Image preprocessing pipeline with automatic cropping, rotation correction, and normalization. Data versioning with DVC for training datasets.',
           featureEngineering: 'Multi-scale feature extraction using pre-trained CNNs (ResNet, EfficientNet). Custom feature engineering for aerospace-specific defect patterns. Edge detection and texture analysis for surface anomaly characterization.',
@@ -198,6 +202,7 @@ export const experiences: Experience[] = [
       {
         name: 'RAG-Based Industrial Documentation Query System',
         description: 'Developed a Retrieval-Augmented Generation system for querying complex aerospace engineering documentation. LangChain-powered application enables engineers to find technical specifications, maintenance procedures, and compliance requirements through natural language queries.',
+        image: '/images/professional-projects/rag-docs.png',
         architecture: {
           dataIngestion: 'Automated ingestion of PDFs, Word docs, CAD metadata, and internal wikis using custom parsers. Document chunking strategy optimized for technical content (section-aware splitting). Incremental updates with change detection to keep knowledge base current.',
           featureEngineering: 'Dense embeddings (OpenAI text-embedding-3-large) for semantic search. Hybrid search combining dense vectors with BM25 sparse retrieval. Metadata extraction (document type, version, certification status) for filtered retrieval.',
