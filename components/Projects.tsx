@@ -15,8 +15,11 @@
 
 import { projects } from '@/lib/data/projects'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export default function Projects() {
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null)
+
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
       'GenAI': 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300',
@@ -49,18 +52,6 @@ export default function Projects() {
               key={project.id}
               className="group bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2"
             >
-              {/* Project Preview Image */}
-              {project.image && (
-                <div className="relative h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-700">
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} Preview`}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              )}
-
               {/* Card Header */}
               <div className="p-6 bg-gradient-to-r from-primary-600 to-accent-500 text-white">
                 <div className="flex items-start justify-between mb-3">
@@ -85,7 +76,10 @@ export default function Projects() {
                     <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
                       Architecture Diagram
                     </h4>
-                    <div className="bg-white dark:bg-gray-900 rounded-lg p-4 border-2 border-gray-200 dark:border-gray-700">
+                    <div
+                      className="bg-white dark:bg-gray-900 rounded-lg p-4 border-2 border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary-400 dark:hover:border-primary-600 transition-colors"
+                      onClick={() => setZoomedImage(project.architectureImage!)}
+                    >
                       <Image
                         src={project.architectureImage}
                         alt={`${project.title} Architecture`}
@@ -93,6 +87,9 @@ export default function Projects() {
                         height={400}
                         className="w-full h-auto rounded"
                       />
+                      <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2">
+                        Click to zoom
+                      </p>
                     </div>
                   </div>
                 )}
@@ -179,6 +176,32 @@ export default function Projects() {
           </a>
         </div>
       </div>
+
+      {/* Image Zoom Modal */}
+      {zoomedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-4"
+          onClick={() => setZoomedImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={() => setZoomedImage(null)}
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="max-w-7xl max-h-full overflow-auto">
+            <Image
+              src={zoomedImage}
+              alt="Architecture Diagram"
+              width={1400}
+              height={900}
+              className="w-auto h-auto max-w-full max-h-[90vh] object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }

@@ -19,6 +19,7 @@ import Image from 'next/image'
 
 export default function Experience() {
   const [expandedProjects, setExpandedProjects] = useState<{ [key: string]: number | null }>({})
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null)
 
   const toggleProject = (expId: string, projectIndex: number) => {
     setExpandedProjects(prev => ({
@@ -110,22 +111,6 @@ export default function Experience() {
                     </ul>
                   </div>
 
-                  {/* Tech Stack */}
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                      Technologies Used
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.techStack.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
 
                   {/* Detailed Projects Section */}
                   {exp.projects && exp.projects.length > 0 && (
@@ -178,7 +163,10 @@ export default function Experience() {
                                     <h6 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
                                       Project Architecture
                                     </h6>
-                                    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border-2 border-gray-200 dark:border-gray-700">
+                                    <div
+                                      className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border-2 border-gray-200 dark:border-gray-700 cursor-pointer hover:border-accent-400 dark:hover:border-accent-600 transition-colors"
+                                      onClick={() => setZoomedImage(project.image!)}
+                                    >
                                       <Image
                                         src={project.image}
                                         alt={`${project.name} Architecture`}
@@ -186,12 +174,15 @@ export default function Experience() {
                                         height={500}
                                         className="w-full h-auto rounded"
                                       />
+                                      <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2">
+                                        Click to zoom
+                                      </p>
                                     </div>
                                   </div>
                                 )}
 
-                                {/* Architecture Sections */}
-                                <div className="space-y-3">
+                                {/* Architecture Sections as Vertical Boxes */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                   {Object.entries(project.architecture).map(([key, value]) => {
                                     if (!value) return null
                                     const titleMap: { [key: string]: string } = {
@@ -206,44 +197,57 @@ export default function Experience() {
                                       cicd: 'CI/CD',
                                       observability: 'Observability'
                                     }
-                                    // Split text by periods to create bullet points
+
+                                    // Extract tech stack keywords from the text
+                                    const techKeywords = [
+                                      'Kafka', 'Redpanda', 'Python', 'FastAPI', 'WebSockets', 'Docker',
+                                      'AWS', 'ECS', 'EC2', 'CloudWatch', 'Streamlit', 'Comet ML',
+                                      'GitHub Actions', 'stable-baselines3', 'PPO', 'SAC', 'LangChain',
+                                      'LangGraph', 'Claude', 'ChromaDB', 'Lambda', 'MLflow', 'Opik',
+                                      'LangSmith', 'tree-sitter', 'PyTorch', 'TensorFlow', 'OpenCV',
+                                      'EfficientNet', 'ResNet', 'Jetson', 'Gradio', 'DVC', 'OpenAI',
+                                      'BM25', 'API Gateway'
+                                    ]
+
+                                    const foundTechs = techKeywords.filter(tech =>
+                                      value.toLowerCase().includes(tech.toLowerCase())
+                                    )
+
+                                    // Summarize text to first 2 sentences
                                     const sentences = value.split('. ').filter(s => s.trim().length > 0)
+                                    const summary = sentences.slice(0, 2).join('. ') + (sentences.length > 2 ? '.' : '')
 
                                     return (
-                                      <div key={key} className="border-l-2 border-accent-500 pl-4">
-                                        <h6 className="text-sm font-semibold text-accent-600 dark:text-accent-400 mb-2">
+                                      <div
+                                        key={key}
+                                        className="bg-gradient-to-br from-accent-50 to-primary-50 dark:from-gray-800 dark:to-gray-750 rounded-lg p-4 border border-accent-200 dark:border-accent-800 shadow-sm hover:shadow-md transition-shadow"
+                                      >
+                                        <h6 className="text-sm font-bold text-accent-700 dark:text-accent-300 mb-2 pb-2 border-b border-accent-200 dark:border-accent-700">
                                           {titleMap[key] || key}
                                         </h6>
-                                        <ul className="space-y-1">
-                                          {sentences.map((sentence, idx) => (
-                                            <li key={idx} className="flex items-start">
-                                              <span className="text-accent-500 mr-2 flex-shrink-0">•</span>
-                                              <span className="text-sm text-gray-700 dark:text-gray-300">
-                                                {sentence.trim()}{sentence.endsWith('.') ? '' : '.'}
+                                        <p className="text-xs text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+                                          {summary}
+                                        </p>
+                                        {foundTechs.length > 0 && (
+                                          <div className="flex flex-wrap gap-1">
+                                            {foundTechs.slice(0, 4).map((tech, techIdx) => (
+                                              <span
+                                                key={techIdx}
+                                                className="px-2 py-0.5 bg-accent-200 dark:bg-accent-800 text-accent-800 dark:text-accent-200 rounded text-xs font-medium"
+                                              >
+                                                {tech}
                                               </span>
-                                            </li>
-                                          ))}
-                                        </ul>
+                                            ))}
+                                            {foundTechs.length > 4 && (
+                                              <span className="px-2 py-0.5 text-accent-600 dark:text-accent-400 text-xs">
+                                                +{foundTechs.length - 4}
+                                              </span>
+                                            )}
+                                          </div>
+                                        )}
                                       </div>
                                     )
                                   })}
-                                </div>
-
-                                {/* Project Tech Stack */}
-                                <div className="pt-4">
-                                  <h6 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                                    Tech Stack
-                                  </h6>
-                                  <div className="flex flex-wrap gap-2">
-                                    {project.techStack.map((tech, techIdx) => (
-                                      <span
-                                        key={techIdx}
-                                        className="px-2 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 rounded text-xs font-medium"
-                                      >
-                                        {tech}
-                                      </span>
-                                    ))}
-                                  </div>
                                 </div>
                               </div>
                             )}
@@ -258,6 +262,32 @@ export default function Experience() {
           </div>
         </div>
       </div>
+
+      {/* Image Zoom Modal */}
+      {zoomedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-4"
+          onClick={() => setZoomedImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={() => setZoomedImage(null)}
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="max-w-7xl max-h-full overflow-auto">
+            <Image
+              src={zoomedImage}
+              alt="Project Architecture"
+              width={1400}
+              height={900}
+              className="w-auto h-auto max-w-full max-h-[90vh] object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }
