@@ -75,7 +75,7 @@ export const experiences: Experience[] = [
       {
         name: 'PRIA - Reinforcement Learning for Medical Parameter Optimization',
         description: 'Led development as ML Technical Lead for a reinforcement learning system optimizing medical treatment parameters in real-time. System processes streaming medical data to provide AI-driven parameter recommendations for healthcare professionals.',
-        image: '/images/professional-projects/pria-rl.png',
+        image: '/images/professional-projects/pria-rl.PNG',
         architecture: {
           dataIngestion: 'Apache Kafka and Redpanda for real-time streaming medical data ingestion from multiple sources. Custom Python consumers process high-frequency sensor data with sub-second latency requirements.',
           featureEngineering: 'Real-time feature extraction pipeline using sliding windows for temporal features. Statistical aggregations (mean, std, percentiles) computed on streaming data. Custom medical domain features engineered in collaboration with healthcare experts.',

@@ -16,6 +16,7 @@
 import { projects } from '@/lib/data/projects'
 import Image from 'next/image'
 import { useState } from 'react'
+import ImageZoomModal from './ImageZoomModal'
 
 export default function Projects() {
   const [zoomedImage, setZoomedImage] = useState<string | null>(null)
@@ -178,30 +179,11 @@ export default function Projects() {
       </div>
 
       {/* Image Zoom Modal */}
-      {zoomedImage && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-4"
-          onClick={() => setZoomedImage(null)}
-        >
-          <button
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-            onClick={() => setZoomedImage(null)}
-          >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div className="max-w-7xl max-h-full overflow-auto">
-            <Image
-              src={zoomedImage}
-              alt="Architecture Diagram"
-              width={1400}
-              height={900}
-              className="w-auto h-auto max-w-full max-h-[90vh] object-contain"
-            />
-          </div>
-        </div>
-      )}
+      <ImageZoomModal
+        imageSrc={zoomedImage}
+        altText="Architecture Diagram"
+        onClose={() => setZoomedImage(null)}
+      />
     </section>
   )
 }
